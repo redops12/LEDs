@@ -1,5 +1,5 @@
 #include "Color.h"
-#include "../ws28128-rpi/ws2812-rpi.h"
+#include "ws28128-rpi/ws2812-rpi.h"
 
 using namespace std;
 

@@ -12,6 +12,7 @@
 #include <signal.h>
 #include <stdarg.h>
 #include <getopt.h>
+#include <iostream>
 
 
 #include "clk.h"
@@ -64,6 +65,7 @@ ws2811_t ledstring =
 int main(int argc, char * argv[]) {
 	ColorLine c(110, {{255,0,0}, {0,255,0}, {0,0,255}});
 	for (int i = 0; i < 110; ++i) {
-		ledstring.channel[0].leds[i+8] = (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
+		cout << c.colors_gradient.size() << endl;
+		ledstring.channel[0].leds[i+8] = 0; // (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
 	}
 }

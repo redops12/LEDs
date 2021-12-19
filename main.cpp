@@ -1,14 +1,69 @@
 #include "Color.h"
-#include "ws28128-rpi/ws2812-rpi.h"
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <signal.h>
+#include <stdarg.h>
+#include <getopt.h>
+
+
+#include "clk.h"
+#include "gpio.h"
+#include "dma.h"
+#include "pwm.h"
+#include "version.h"
+
+#include "ws2811.h"
+
+
+// defaults for cmdline options
+#define TARGET_FREQ             WS2811_TARGET_FREQ
+#define GPIO_PIN                18
+#define DMA                     10
+//#define STRIP_TYPE            WS2811_STRIP_RGB		// WS2812/SK6812RGB integrated chip+leds
+#define STRIP_TYPE              WS2811_STRIP_GBR		// WS2812/SK6812RGB integrated chip+leds
+//#define STRIP_TYPE            SK6812_STRIP_RGBW		// SK6812RGBW (NOT SK6812RGB)
+
+#define LED_COUNT               120
+
+int led_count = LED_COUNT;
 
 using namespace std;
 
+ws2811_t ledstring =
+{
+    .freq = TARGET_FREQ,
+    .dmanum = DMA,
+    .channel =
+    {
+        [0] =
+        {
+            .gpionum = GPIO_PIN,
+            .invert = 0,
+            .count = LED_COUNT,
+            .strip_type = STRIP_TYPE,
+            .brightness = 255,
+        },
+        [1] =
+        {
+            .gpionum = 0,
+            .invert = 0,
+            .count = 0,
+            .brightness = 0,
+        },
+    },
+};
+
 int main(int argc, char * argv[]) {
 	ColorLine c(110, {{255,0,0}, {0,255,0}, {0,0,255}});
-	NeoPixel n(120);
-	n.begin();
 	for (int i = 0; i < 110; ++i) {
-		n.setPixelColor(i+8, c.colors_gradient[i].red, c.colors_gradient[i].green, c.colors_gradient[i].blue);
+		ledstring.channel[0].leds[i+8] = (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
 	}
-	n.show();
 }

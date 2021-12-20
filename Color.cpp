@@ -1,4 +1,7 @@
 #include "Color.h"
+#include <iostream>
+
+using namespace std;
 
 Color linear(Color c1, Color c2, int length, int pos) {
 	Color out;
@@ -50,6 +53,7 @@ void ColorLine::delete_color(int pos) {
 }
 
 void ColorWheel::regenerate_curve() {
+	cout << "test" << endl;
 	int dist = length/colors_fixed.size();
 	colors_gradient.resize(length);
 	for (int i = 0; i < colors_fixed.size(); ++i) {
@@ -59,4 +63,6 @@ void ColorWheel::regenerate_curve() {
 	}
 }
 
-ColorWheel::ColorWheel(int length, vector<Color> in_colors_fixed): ColorLine(length, in_colors_fixed) {}
+ColorWheel::ColorWheel(int length, vector<Color> in_colors_fixed): ColorLine(length, in_colors_fixed) {
+	regenerate_curve();
+}

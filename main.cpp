@@ -85,7 +85,7 @@ int main(int argc, char * argv[]) {
 	ColorWheel c(110, {{255,0,0}, {0,255,0}, {0,0,255}});
 	while (running) {
 		for (int i = 0; i < 110; ++i) {
-
+			printf("%d %x\n", i, (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue);
 			ledstring.channel[0].leds[i+8] = (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
 		}
 

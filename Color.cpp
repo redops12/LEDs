@@ -19,15 +19,26 @@ void ColorLine::regenerate_curve() {
 	int dist = length/(colors_fixed.size()-1);
 	colors_gradient.resize(length);
 	int end;
-	for (int i = 0; i < colors_fixed.size() - 1; ++i) {
-		for (int j = 0; j < dist; ++j) {
-			colors_gradient[i * dist + j] = linear(colors_fixed[i], colors_fixed[i + 1], dist, j);
-			end = i *dist + j;
-		}
+	if (colors_fixed.size() == 0) {
+		for (int i = 0; i < length; ++i) {
+			colors_gradient[i] = {0,0,0};
+		}	
 	}
-	if (end != length) {
-		for (int i = end; i < length; ++i)
-			colors_gradient[i] = colors_gradient[end];
+	else if (colors_fixed.size() == 1) {
+		for (int i = 0; i < length; ++i) {
+			colors_gradient[i] = colors_fixed[0];
+		}	
+	} else {
+		for (int i = 0; i < colors_fixed.size() - 1; ++i) {
+			for (int j = 0; j < dist; ++j) {
+				colors_gradient[i * dist + j] = linear(colors_fixed[i], colors_fixed[i + 1], dist, j);
+				end = i *dist + j;
+			}
+		}
+		if (end != length) {
+			for (int i = end; i < length; ++i)
+				colors_gradient[i] = colors_gradient[end];
+		}
 	}
 }
 
@@ -62,15 +73,26 @@ void ColorWheel::regenerate_curve() {
 	int dist = length/colors_fixed.size();
 	colors_gradient.resize(length);
 	int end;
-	for (int i = 0; i < colors_fixed.size(); ++i) {
-		for (int j = 0; j < dist; ++j) {	
-			colors_gradient[i * dist + j] = linear(colors_fixed[i],  colors_fixed[(i == colors_fixed.size() - 1) ? 0 : i + 1], dist, j);
-		end = i *dist + j;
-		}
+	if (colors_fixed.size() == 0) {
+		for (int i = 0; i < length; ++i) {
+			colors_gradient[i] = {0,0,0};
+		}	
 	}
-	if (end != length) {
-		for (int i = end; i < length; ++i)
-			colors_gradient[i] = colors_gradient[end];
+	else if (colors_fixed.size() == 1) {
+		for (int i = 0; i < length; ++i) {
+			colors_gradient[i] = colors_fixed[0];
+		}	
+	} else {
+		for (int i = 0; i < colors_fixed.size(); ++i) {
+			for (int j = 0; j < dist; ++j) {	
+				colors_gradient[i * dist + j] = linear(colors_fixed[i],  colors_fixed[(i == colors_fixed.size() - 1) ? 0 : i + 1], dist, j);
+			end = i *dist + j;
+			}
+		}
+		if (end != length) {
+			for (int i = end; i < length; ++i)
+				colors_gradient[i] = colors_gradient[end];
+		}
 	}
 }
 

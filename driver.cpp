@@ -58,7 +58,7 @@ void run() {
 
 		if (ws2811_render(&ledstring) != WS2811_SUCCESS)
 		{
-		    fprintf(stderr, "ws2811_render failed: \n");
+		   fprintf(stderr, "ws2811_render failed: \n");
 		}
 }
 

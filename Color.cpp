@@ -16,9 +16,7 @@ ColorLine::ColorLine(int length, vector<Color> in_colors_fixed): length(length),
 }	
 
 void ColorLine::regenerate_curve() {
-	int dist = length/(colors_fixed.size()-1);
 	colors_gradient.resize(length);
-	int end;
 	if (colors_fixed.size() == 0) {
 		for (int i = 0; i < length; ++i) {
 			colors_gradient[i] = {0,0,0};
@@ -29,6 +27,9 @@ void ColorLine::regenerate_curve() {
 			colors_gradient[i] = colors_fixed[0];
 		}	
 	} else {
+		int dist = length/(colors_fixed.size()-1);
+		colors_gradient.resize(length);
+		int end;
 		for (int i = 0; i < colors_fixed.size() - 1; ++i) {
 			for (int j = 0; j < dist; ++j) {
 				colors_gradient[i * dist + j] = linear(colors_fixed[i], colors_fixed[i + 1], dist, j);
@@ -70,9 +71,7 @@ void ColorLine::delete_color(int pos) {
 }
 
 void ColorWheel::regenerate_curve() {
-	int dist = length/colors_fixed.size();
 	colors_gradient.resize(length);
-	int end;
 	if (colors_fixed.size() == 0) {
 		for (int i = 0; i < length; ++i) {
 			colors_gradient[i] = {0,0,0};
@@ -83,6 +82,8 @@ void ColorWheel::regenerate_curve() {
 			colors_gradient[i] = colors_fixed[0];
 		}	
 	} else {
+		int dist = length/colors_fixed.size();
+		int end;
 		for (int i = 0; i < colors_fixed.size(); ++i) {
 			for (int j = 0; j < dist; ++j) {	
 				colors_gradient[i * dist + j] = linear(colors_fixed[i],  colors_fixed[(i == colors_fixed.size() - 1) ? 0 : i + 1], dist, j);

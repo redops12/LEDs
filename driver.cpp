@@ -42,20 +42,24 @@ ws2811_t ledstring =
 };
 
 void run() {
+	//for (int i = 0; i < 110; ++i) {
+		//cout << hex << "stats " << i << " " << pixels[i].counter << " " << pixels[i].c->length << " " << (pixels[i].c->colors_gradient[pixels[i].counter].red << 16) + (pixels[i].c->colors_gradient[pixels[i].counter].green << 8) + pixels[i].c->colors_gradient[pixels[i].counter].blue << endl;
+	//}
+		//cout << hex << "stats " << 0 << " " << pixels[0].counter << " " << pixels[0].c->length << " " << (pixels[0].c->colors_gradient[pixels[0].counter].red << 16) + (pixels[0].c->colors_gradient[pixels[0].counter].green << 8) + pixels[0].c->colors_gradient[pixels[0].counter].blue << endl;
 		for (int i = 0; i < 110; ++i) {
 			if (pixels[i].counter >= pixels[i].c->length) {
 				continue;
 			}
 			ledstring.channel[0].leds[i+8] = (pixels[i].c->colors_gradient[pixels[i].counter].red << 16) + (pixels[i].c->colors_gradient[pixels[i].counter].green << 8) + pixels[i].c->colors_gradient[pixels[i].counter].blue;
+			// printf("%x \n", (pixels[i].c->colors_gradient[pixels[i].counter].red << 16) + (pixels[i].c->colors_gradient[pixels[i].counter].green << 8) + pixels[i].c->colors_gradient[pixels[i].counter].blue);
+
 			pixels[i].counter++;
 			if (pixels[i].counter == pixels[i].c->length) {
 				if (pixels[i].loop) {
 					pixels[i].counter = 0;
 				} 
 			}
-		}
-		
-
+		}		
 		if (ws2811_render(&ledstring) != WS2811_SUCCESS)
 		{
 		   fprintf(stderr, "ws2811_render failed: \n");

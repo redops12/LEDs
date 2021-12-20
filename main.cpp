@@ -18,6 +18,6 @@ int main(int argc, char * argv[]) {
 	while (running) {
 		cout << running << endl;
 		run();
-        usleep(1000000 / 15);
+        usleep(1000000 / 150);
 	}
 }

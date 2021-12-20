@@ -82,7 +82,13 @@ int main(int argc, char * argv[]) {
 	return -1;
 	}
 	    
-	ColorWheel c(110, {{255,0,0}, {0,255,0}, {0,0,255}});
+	Color blue;
+	blue.blue = 255;
+	Color white;
+	white.red = 255;
+	white.green = 255;
+	white.blue = 255;
+	ColorWheel c(110, {white, blue, white, blue});
 	while (running) {
 		for (int i = 0; i < 110; ++i) {
 			printf("%d %x\n", i, (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue);

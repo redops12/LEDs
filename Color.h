@@ -4,9 +4,9 @@
 using namespace std;
 
 struct Color {
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
+	unsigned char red = 0;
+	unsigned char green = 0;
+	unsigned char blue = 0;
 } typedef Color;
 
 Color linear(Color c1, Color c2, int length, int pos);

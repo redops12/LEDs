@@ -1,5 +1,12 @@
 #include "Color.h"
 
+#include <iostream>
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -12,16 +19,20 @@
 #include <signal.h>
 #include <stdarg.h>
 #include <getopt.h>
-#include <iostream>
-
 
 #include "clk.h"
 #include "gpio.h"
 #include "dma.h"
 #include "pwm.h"
 #include "version.h"
+#include "other.c"
 
 #include "ws2811.h"
+
+#ifdef __cplusplus
+}
+#endif
+
 
 
 // defaults for cmdline options
@@ -63,9 +74,26 @@ ws2811_t ledstring =
 };
 
 int main(int argc, char * argv[]) {
+	setup_handlers();
+
+	    if (ws2811_init(&ledstring) != WS2811_SUCCESS)
+	    {
+		fprintf(stderr, "ws2811_init failed: \n");
+		return -1;
+	    }
+	    
 	ColorLine c(110, {{255,0,0}, {0,255,0}, {0,0,255}});
-	for (int i = 0; i < 110; ++i) {
-		cout << c.colors_gradient.size() << endl;
-		ledstring.channel[0].leds[i+8] = 0; // (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
+	while (running) {
+		for (int i = 0; i < 110; ++i) {
+
+			ledstring.channel[0].leds[i+8] = (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
+		}
+
+		if (ws2811_render(&ledstring) != WS2811_SUCCESS)
+		{
+		    fprintf(stderr, "ws2811_render failed: \n");
+		    break;
+		}
+        	usleep(1000000 / 15);
 	}
 }

@@ -5,6 +5,7 @@
 
 int main(int argc, char * argv[]) {
 	driver_init();
+
 	Color blue;
 	blue.blue = 255;
 	Color white;

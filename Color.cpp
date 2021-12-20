@@ -59,7 +59,6 @@ void ColorLine::delete_color(int pos) {
 }
 
 void ColorWheel::regenerate_curve() {
-	cout << "test" << endl;
 	int dist = length/colors_fixed.size();
 	colors_gradient.resize(length);
 	int end;

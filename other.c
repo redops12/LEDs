@@ -20,6 +20,8 @@
 #include "version.h"
 
 #include "ws2811.h"
+#ifndef OTHER
+#define OTHER
 
 static uint8_t running = 1;
 
@@ -27,6 +29,7 @@ static void ctrl_c_handler(int signum)
 {
 	(void)(signum);
     running = 0;
+    printf("terminated\n");
 }
 
 static void setup_handlers(void)
@@ -37,3 +40,4 @@ static void setup_handlers(void)
     sigaction(SIGINT, &sa, NULL);
     sigaction(SIGTERM, &sa, NULL);
 }
+#endif

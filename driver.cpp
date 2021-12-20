@@ -13,6 +13,8 @@
 
 int led_count = LED_COUNT;
 
+pixel pixels[110];
+
 using namespace std;
 
 ws2811_t ledstring =
@@ -38,18 +40,21 @@ ws2811_t ledstring =
         },
     },
 };
+
 void run() {
-	Color blue;
-	blue.blue = 255;
-	Color white;
-	white.red = 255;
-	white.green = 255;
-	white.blue = 255;
-	ColorWheel c(110, {white, blue, white, blue});
 		for (int i = 0; i < 110; ++i) {
-			//printf("%d %x\n", i, (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue);
-			ledstring.channel[0].leds[i+8] = (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
+			if (pixels[i].counter >= pixels[i].c->length) {
+				continue;
+			}
+			ledstring.channel[0].leds[i+8] = (pixels[i].c->colors_gradient[pixels[i].counter].red << 16) + (pixels[i].c->colors_gradient[pixels[i].counter].green << 8) + pixels[i].c->colors_gradient[pixels[i].counter].blue;
+			pixels[i].counter++;
+			if (pixels[i].counter == pixels[i].c->length) {
+				if (pixels[i].loop) {
+					pixels[i].counter = 0;
+				} 
+			}
 		}
+		
 
 		if (ws2811_render(&ledstring) != WS2811_SUCCESS)
 		{

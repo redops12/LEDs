@@ -38,6 +38,15 @@ extern "C"
 #ifndef DRIVER
 #define DRIVER
 
+class pixel {
+public:
+	ColorLine *c = new ColorLine(1, {{0,0,0}});
+	bool loop = true;
+	unsigned int counter = 0;
+};
+
+extern pixel pixels[];
+
 void run();
 void driver_init(); 
 

@@ -3,6 +3,7 @@ CXX = g++
 CFLAGS = --std=c++17 -fpermissive -g
 CSOURCES = mailbox.c ws2811.c pwm.c pcm.c dma.c rpihw.c other.c
 CPPSOURCES = main.cpp Color.cpp 
+HEADERS = Color.h
 OBJSC = $(subst .c,.o,$(CSOURCES))
 OBJSCXX = $(subst .cpp,.o,$(CPPSOURCES))
 
@@ -13,7 +14,7 @@ OBJSCXX = $(subst .cpp,.o,$(CPPSOURCES))
 	$(CXX) -c $(CFLAGS) $<
 
 
-run: $(OBJSC) $(OBJSCXX)
+run: $(OBJSC) $(OBJSCXX) $(HEADERS)
 	${CXX} -o $@ $^ 
 	
 

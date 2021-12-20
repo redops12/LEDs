@@ -2,10 +2,12 @@
 #include "error.h"
 
 using namespace std;
+#ifndef COLOR
+#define COLOR
 
 struct Color {
-	unsigned char red = 0;
 	unsigned char green = 0;
+	unsigned char red = 0;
 	unsigned char blue = 0;
 } typedef Color;
 
@@ -32,3 +34,5 @@ public:
 
 	void regenerate_curve(); 
 };
+
+#endif

@@ -1,4 +1,6 @@
 #include <stdexcept>
+#ifndef EXCEPTION
+#define EXCEPTION
 
 class ColorException : public std::exception { 
 	public:
@@ -11,3 +13,5 @@ class ColorException : public std::exception {
 	private:
 		const std::string msg;
 };
+
+#endif

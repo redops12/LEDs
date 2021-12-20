@@ -10,7 +10,7 @@ void run() {
 	white.green = 255;
 	white.blue = 255;
 	ColorWheel c(110, {white, blue, white, blue});
-	while (running) {
+	//while (running) {
 		for (int i = 0; i < 110; ++i) {
 			printf("%d %x\n", i, (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue);
 			ledstring.channel[0].leds[i+8] = (c.colors_gradient[i].red << 16) + (c.colors_gradient[i].green << 8) + c.colors_gradient[i].blue;
@@ -19,10 +19,9 @@ void run() {
 		if (ws2811_render(&ledstring) != WS2811_SUCCESS)
 		{
 		    fprintf(stderr, "ws2811_render failed: \n");
-		    break;
 		}
         	usleep(1000000 / 15);
-	}
+	//}
 }
 
 void driver_init() {

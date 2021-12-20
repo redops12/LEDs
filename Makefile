@@ -2,8 +2,8 @@ CC = gcc
 CXX = g++
 CFLAGS = --std=c++17 -fpermissive -g
 CSOURCES = mailbox.c ws2811.c pwm.c pcm.c dma.c rpihw.c other.c
-CPPSOURCES = main.cpp Color.cpp 
-HEADERS = Color.h
+CPPSOURCES = main.cpp Color.cpp driver.cpp
+HEADERS = Color.h driver.h
 OBJSC = $(subst .c,.o,$(CSOURCES))
 OBJSCXX = $(subst .cpp,.o,$(CPPSOURCES))
 

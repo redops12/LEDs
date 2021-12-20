@@ -62,9 +62,11 @@ void ColorWheel::regenerate_curve() {
 	cout << "test" << endl;
 	int dist = length/colors_fixed.size();
 	colors_gradient.resize(length);
+	int end;
 	for (int i = 0; i < colors_fixed.size(); ++i) {
 		for (int j = 0; j < dist; ++j) {	
 			colors_gradient[i * dist + j] = linear(colors_fixed[i],  colors_fixed[(i == colors_fixed.size() - 1) ? 0 : i + 1], dist, j);
+		end = i *dist + j;
 		}
 	}
 	if (end != length) {

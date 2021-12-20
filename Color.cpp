@@ -59,3 +59,4 @@ void ColorWheel::regenerate_curve() {
 	}
 }
 
+ColorWheel::ColorWheel(int length, vector<Color> in_colors_fixed): ColorLine(length, in_colors_fixed) {}

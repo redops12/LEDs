@@ -76,13 +76,13 @@ ws2811_t ledstring =
 int main(int argc, char * argv[]) {
 	setup_handlers();
 
-	    if (ws2811_init(&ledstring) != WS2811_SUCCESS)
-	    {
-		fprintf(stderr, "ws2811_init failed: \n");
-		return -1;
-	    }
+	if (ws2811_init(&ledstring) != WS2811_SUCCESS)
+	{
+	fprintf(stderr, "ws2811_init failed: \n");
+	return -1;
+	}
 	    
-	ColorLine c(110, {{255,0,0}, {0,255,0}, {0,0,255}});
+	ColorWheel c(110, {{255,0,0}, {0,255,0}, {0,0,255}});
 	while (running) {
 		for (int i = 0; i < 110; ++i) {
 

@@ -28,5 +28,7 @@ public:
 
 class ColorWheel : public ColorLine {
 public:	
+	ColorWheel(int length, vector<Color> in_colors_fixed);
+
 	void regenerate_curve(); 
 };
